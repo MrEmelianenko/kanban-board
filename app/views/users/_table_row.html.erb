@@ -1,0 +1,19 @@
+<tr>
+  <td>
+    <%= link_to user.name, user_path(user) %>
+  </td>
+  <td>
+    <%= link_to user.email, "mailto:#{user.email}" %>
+  </td>
+  <td>
+    <ul class="list-inline">
+      <% if policy(user).show? %>
+        <li><%= link_to 'View', user_path(user) %></li>
+      <% end %>
+
+      <% if policy(user).edit? %>
+        <li><%= link_to 'Edit', edit_user_path(user) %></li>
+      <% end %>
+    </ul>
+  </td>
+</tr>

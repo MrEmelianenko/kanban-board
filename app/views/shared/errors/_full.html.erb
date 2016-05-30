@@ -1,0 +1,21 @@
+<% if errors.present? %>
+  <div class="alert alert-danger" role="alert">
+    <h4><%= pluralize(errors.values.flatten.count, 'error') %></h4>
+
+    <ul>
+      <% errors[:base]&.each do |error| %>
+        <li>
+          <strong><%= error %></strong>
+        </li>
+      <% end %>
+
+      <% errors&.except(:base).each do |key, key_errors| %>
+        <% key_errors.each do |error| %>
+          <li>
+            <strong><%= key.to_s.humanize %></strong> <%= error %>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

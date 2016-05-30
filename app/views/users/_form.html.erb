@@ -1,0 +1,71 @@
+<%= form_for(user) do |f| %>
+  <%= render_full_errors(errors) %>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="page-header">
+        <h4>Profile Information</h4>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: 'form-control' %>
+        <%= render_field_error(errors, :name) %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :email %>
+        <%= f.text_field :email, class: 'form-control' %>
+        <%= render_field_error(errors, :email) %>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="page-header">
+        <h4>Change Password</h4>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password %>
+        <%= f.password_field :password, class: 'form-control' %>
+        <%= render_field_error(errors, :password) %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation, class: 'form-control' %>
+        <%= render_field_error(errors, :password_confirmation) %>
+      </div>
+    </div>
+  </div>
+
+  <% if policy(user).update_system_information? %>
+    <div class="page-header">
+      <h4>System information</h4>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :state %>
+      <%= f.select :state, enum_to_select(User.states), class: 'form-control' %>
+    </div>
+  <% end %>
+
+  <div class="page-header">
+    <h4>Save Changes</h4>
+  </div>
+  <div class="row">
+    <% if policy(user).update_pass_required? %>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <%= f.password_field :current_password, class: 'form-control', placeholder: 'Current password' %>
+          <%= render_field_error(errors, :current_password) %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <%= f.submit 'Update', class: 'btn btn-primary btn-block' %>
+      </div>
+    </div>
+  </div>
+<% end %>

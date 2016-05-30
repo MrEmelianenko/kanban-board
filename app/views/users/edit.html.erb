@@ -1,0 +1,9 @@
+<div class="page-header">
+  <% if user == current_user %>
+    <h1>Manage Profile</h1>
+  <% else %>
+    <h1>Edit User</h1>
+  <% end %>
+</div>
+
+<%= render partial: 'form', locals: { user: user, errors: errors } %>

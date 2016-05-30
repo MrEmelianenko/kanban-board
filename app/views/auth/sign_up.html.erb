@@ -1,0 +1,42 @@
+<div class="page-header">
+  <h1>Sign Up</h1>
+</div>
+
+<%= form_for(user, url: session[:omniauth_data].present? ? omniauth_path : register_path) do |f| %>
+  <%= render_full_errors(errors) if defined?(errors) %>
+
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name,
+                     value: user.name || session.to_hash.dig('omniauth_data', 'info', 'name'),
+                     class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :email %>
+    <%= f.text_field :email,
+                     value: user.email || session.to_hash.dig('omniauth_data', 'info', 'email'),
+                     class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :password %>
+    <%= f.password_field :password, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit 'Sign Up', class: 'btn btn-primary btn-block' %>
+  </div>
+
+  <div class="form-group">
+    <ul class="list-unstyled">
+      <li><%= link_to 'Sign Up via Google', '/auth/google_oauth2' %></li>
+      <li><%= link_to 'Already have an account? Sign In', sign_in_path %></li>
+    </ul>
+  </div>
+<% end %>

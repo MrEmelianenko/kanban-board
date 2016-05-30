@@ -1,0 +1,33 @@
+<div class="page-header">
+  <h1>
+    <%= user.name %>
+
+    <% if policy(user).edit? %>
+      <%= link_to 'Edit', edit_user_path(user), class: 'btn btn-primary btn-xs' %>
+    <% end %>
+  </h1>
+</div>
+
+<div class="page-header">
+  <h3>Connected accounts</h3>
+</div>
+
+<% if user.user_accounts.load.count.zero? %>
+  <p>You don't connect any accounts</p>
+<% else %>
+  <ul class="list-connected-accounts">
+    <% user.user_accounts.each do |account| %>
+      <li>
+        <%= link_to account.data.dig('info', 'name'), account.data.dig('raw_info', 'profile') %>
+        <small>(<%= account.data.dig('info', 'email') %>)</small>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if user == current_user %>
+  <%= link_to '/auth/google_oauth2', class: 'btn btn-primary' do %>
+    <i class="glyphicon glyphicon-plus"></i>
+    Connect account
+  <% end %>
+<% end %>

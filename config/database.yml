@@ -1,0 +1,16 @@
+default: &default
+  adapter: postgresql
+  pool: 5
+  timeout: 5000
+
+development:
+  <<: *default
+  database: kanban_development
+
+test:
+  <<: *default
+  database: kanban_test
+
+production:
+  <<: *default
+  database: kanban_production

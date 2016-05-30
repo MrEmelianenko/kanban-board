@@ -1,0 +1,4 @@
+# This file need to move to .gitignore, but for test we can keep it
+
+GOOGLE_API_KEY: '349617560105-tofcavkejfuhiapfq0r41sc8s75265mf.apps.googleusercontent.com'
+GOOGLE_API_SECRET: 'bhXS3LCDsHasChbsOZ_dcRUN'

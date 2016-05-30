@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kanban Board</title>
+  <%= csrf_meta_tags %>
+
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+
+<body>
+  <%= render partial: 'layouts/shared/navbar' %>
+
+  <div class="container">
+    <%= render partial: 'shared/flash_notices' %>
+
+    <%= yield %>
+  </div>
+</body>
+</html>

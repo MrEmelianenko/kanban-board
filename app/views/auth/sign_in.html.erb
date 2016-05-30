@@ -1,0 +1,29 @@
+<div class="page-header">
+  <h1>Sign In</h1>
+</div>
+
+<%= form_tag(login_path) do %>
+  <%= render_full_errors(errors) if defined?(errors) %>
+
+  <div class="form-group">
+    <%= label_tag :email %>
+    <%= text_field_tag :email, params.dig(:user, :email), class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag :password %>
+    <%= password_field_tag :password, nil, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= submit_tag 'Sign In', class: 'btn btn-primary btn-block' %>
+  </div>
+
+  <div class="form-group">
+    <ul class="list-unstyled">
+      <li><%= link_to 'Sign In via Google', '/auth/google_oauth2' %></li>
+      <li><%= link_to 'Don\'t have an account? Sign Up Now', sign_up_path %></li>
+    </ul>
+  </div>
+<% end %>
+
