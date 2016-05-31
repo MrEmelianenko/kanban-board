@@ -1,0 +1,11 @@
+<div class="page-header">
+  <h1>
+    Projects
+
+    <% if policy(Project).create? %>
+      <%= link_to 'New project', new_project_path, class: 'btn btn-primary pull-right' %>
+    <% end %>
+  </h1>
+</div>
+
+<%= render partial: 'table', locals: { projects: projects } %>

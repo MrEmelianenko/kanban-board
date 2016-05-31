@@ -7,7 +7,7 @@ module UserServices
       @params = params
       @user = nil
 
-      super() # Initialize helpful variables
+      super()
     end
 
     def run
@@ -46,7 +46,11 @@ module UserServices
     end
 
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
+      if params.is_a?(ActionController::Parameters)
+        params.require(:user).permit(:name, :email, :password, :password_confirmation)
+      else
+        params[:user]
+      end
     end
   end
 end

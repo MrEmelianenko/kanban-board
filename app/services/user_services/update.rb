@@ -3,61 +3,51 @@ module UserServices
     # Getters
     attr_reader :user
 
-    def initialize(params, current_user: nil)
-      @params = params
+    def initialize(user:, user_params:, current_user:, current_password:)
+      @user = user
+      @user_params = user_params
       @current_user = current_user
-      @user = nil
+      @current_password = current_password
 
-      super() # Initialize helpful variables
+      @policy = UserPolicy.new(current_user, user)
+
+      super()
     end
 
     def run
-      load_user
       check_permissions or return false
-      validate_data or return false
-      create_user
+      validate_data     or return false
+      update_user
     end
 
     private
 
     # Getters
-    attr_reader :params, :current_user
-
-    # Setters
-    attr_writer :user
-
-    def load_user
-      self.user = User.find(params[:id])
-    end
+    attr_reader :user_params, :current_user, :current_password, :policy
 
     def check_permissions
-      # TODO: Use Policy in this place
-      return true if current_user.admin? && user != current_user
-
-      if user == current_user
-        unless user.authenticate(params.dig(:user, :current_password))
-          add_error(:current_password, 'is wrong')
-        end
-      else
+      unless policy.update?
         add_error(:base, "You don't have access to editing this user")
+        return false
+      end
+
+      if policy.update_pass_required? && !user.authenticate(current_password)
+        add_error(:current_password, 'is wrong')
+        return false
       end
 
       success?
     end
 
     def validate_data
-      user.update(user_params)
+      user.assign_attributes(user_params)
       merge_model_errors(user) unless user.valid?
 
       success?
     end
 
-    def create_user
+    def update_user
       user.save
-    end
-
-    def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation, :state)
     end
   end
 end

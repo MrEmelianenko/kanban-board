@@ -1,0 +1,5 @@
+<div class="page-header">
+  <h4><%= state.humanize %></h4>
+</div>
+
+<%= render partial: 'issues/state_board_item', collection: issues.where(state: state), as: :issue %>

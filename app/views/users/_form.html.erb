@@ -1,5 +1,5 @@
 <%= form_for(user) do |f| %>
-  <%= render_full_errors(errors) %>
+  <%= render_full_errors(errors) if defined?(errors) %>
 
   <div class="row">
     <div class="col-sm-6">
@@ -10,13 +10,13 @@
       <div class="form-group">
         <%= f.label :name %>
         <%= f.text_field :name, class: 'form-control' %>
-        <%= render_field_error(errors, :name) %>
+        <%= render_field_error(errors, :name) if defined?(errors) %>
       </div>
 
       <div class="form-group">
         <%= f.label :email %>
         <%= f.text_field :email, class: 'form-control' %>
-        <%= render_field_error(errors, :email) %>
+        <%= render_field_error(errors, :email) if defined?(errors) %>
       </div>
     </div>
     <div class="col-sm-6">
@@ -27,13 +27,13 @@
       <div class="form-group">
         <%= f.label :password %>
         <%= f.password_field :password, class: 'form-control' %>
-        <%= render_field_error(errors, :password) %>
+        <%= render_field_error(errors, :password) if defined?(errors) %>
       </div>
 
       <div class="form-group">
         <%= f.label :password_confirmation %>
         <%= f.password_field :password_confirmation, class: 'form-control' %>
-        <%= render_field_error(errors, :password_confirmation) %>
+        <%= render_field_error(errors, :password_confirmation) if defined?(errors) %>
       </div>
     </div>
   </div>
@@ -57,7 +57,7 @@
       <div class="col-sm-4">
         <div class="form-group">
           <%= f.password_field :current_password, class: 'form-control', placeholder: 'Current password' %>
-          <%= render_field_error(errors, :current_password) %>
+          <%= render_field_error(errors, :current_password) if defined?(errors) %>
         </div>
       </div>
     <% end %>

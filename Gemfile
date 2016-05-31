@@ -24,10 +24,18 @@ gem 'bootstrap-sass', '~> 3.3.6'
 # Security
 gem 'bcrypt', '~> 3.1.7'
 
+# Decorators (My own GEM based on Draper)
+# https://github.com/MrEmelianenko/drape/wiki/Meet-Drape!
+gem 'drape', '~> 1.0.0.beta1'
+
+# State machine
+gem 'aasm', '~> 4.10'
+
 # Other
 gem 'figaro', '~> 1.1'
 gem 'request_store', '~> 1.3'
 gem 'foreman', '~> 0.82.0'
+gem 'cocoon', '~> 1.2'
 
 group :development, :test do
   gem 'byebug', platform: :mri

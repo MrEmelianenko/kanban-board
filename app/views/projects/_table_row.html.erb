@@ -1,0 +1,20 @@
+<tr>
+  <td><%= link_to project.name, project_path(project) %></td>
+  <td><%= project.creator.name %></td>
+  <td><%= project.formatted_created_at %></td>
+  <td>
+    <ul class="list-inline">
+      <% if policy(project).show? %>
+        <li><%= link_to 'View', project_path(project) %></li>
+      <% end %>
+
+      <% if policy(project).update? %>
+        <li><%= link_to 'Edit', edit_project_path(project) %></li>
+      <% end %>
+
+      <% if policy(project).destroy? %>
+        <li><%= link_to 'Delete', project_path(project), method: :delete %></li>
+      <% end %>
+    </ul>
+  </td>
+</tr>

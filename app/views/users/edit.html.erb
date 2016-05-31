@@ -6,4 +6,4 @@
   <% end %>
 </div>
 
-<%= render partial: 'form', locals: { user: user, errors: errors } %>
+<%= render partial: 'form', locals: { user: user, errors: defined?(errors) ? errors : {} } %>

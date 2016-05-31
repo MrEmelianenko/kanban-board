@@ -3,7 +3,7 @@
     <%= user.name %>
 
     <% if policy(user).edit? %>
-      <%= link_to 'Edit', edit_user_path(user), class: 'btn btn-primary btn-xs' %>
+      <%= link_to 'Edit', edit_user_path(user), class: 'btn btn-primary pull-right' %>
     <% end %>
   </h1>
 </div>
@@ -13,7 +13,7 @@
 </div>
 
 <% if user.user_accounts.load.count.zero? %>
-  <p>You don't connect any accounts</p>
+  <p>You did not connect any accounts</p>
 <% else %>
   <ul class="list-connected-accounts">
     <% user.user_accounts.each do |account| %>
@@ -26,8 +26,5 @@
 <% end %>
 
 <% if user == current_user %>
-  <%= link_to '/auth/google_oauth2', class: 'btn btn-primary' do %>
-    <i class="glyphicon glyphicon-plus"></i>
-    Connect account
-  <% end %>
+  <%= link_to '+ Connect account', '/auth/google_oauth2', class: 'btn btn-primary' %>
 <% end %>

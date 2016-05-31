@@ -8,11 +8,16 @@ class UsersController < ApplicationController
   end
 
   def edit
-    render locals: { user: user, errors: {} }
+    render locals: { user: user }
   end
 
   def update
-    service = UserServices::Update.run!(params, current_user: current_user)
+    service = UserServices::Update.run!(
+      user: user,
+      user_params: user_params,
+      current_user: current_user,
+      current_password: params.dig(:user, :current_password)
+    )
 
     if service.success?
       redirect_to user_url(service.user)
@@ -25,10 +30,9 @@ class UsersController < ApplicationController
 
   def users
     return @users if defined?(@users)
-    @users = User.all
 
     authorize User
-    @users
+    @users = User.all
   end
 
   def user
@@ -37,5 +41,13 @@ class UsersController < ApplicationController
 
     authorize @user
     @user
+  end
+
+  def user_params
+    if policy(user).update_system_information?
+      params.require(:user).permit(:name, :email, :password, :password_confirmation, :state)
+    else
+      params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    end
   end
 end

@@ -1,0 +1,17 @@
+<% if projects.size > 0 %>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Creator</th>
+      <th>Created at</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <%= render partial: 'projects/table_row', collection: projects, as: :project %>
+    </tbody>
+  </table>
+<% else %>
+  <p>The projects have not yet been created. <%= link_to 'Your will be first :)', new_project_path %></p>
+<% end %>

@@ -6,18 +6,19 @@ class CreateIssues < ActiveRecord::Migration[5.0]
       t.references :assigned_to, type: :uuid, index: true
       t.references :issue_type,  type: :uuid, index: true, foreign_key: true
 
-      t.string :title, null: false
-      t.text   :description
+      t.string   :title, null: false
+      t.text     :description
+      t.integer  :priority, default: nil
+      t.integer  :estimate, default: nil
 
       t.integer  :state,        default: nil
       t.datetime :started_at,   default: nil
       t.datetime :completed_at, default: nil
-      t.integer  :estimate,     default: nil
+      t.integer  :position, null: false
 
       t.timestamps
     end
 
     add_foreign_key :issues, :users, column: :creator_id
-    add_foreign_key :issues, :users, column: :assigned_to_id
   end
 end

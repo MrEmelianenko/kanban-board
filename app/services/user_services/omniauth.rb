@@ -9,7 +9,7 @@ module UserServices
       @current_user = current_user
       @user = nil
 
-      super() # Initialize helpful variables
+      super()
     end
 
     def run
@@ -40,9 +40,16 @@ module UserServices
     end
 
     def create_user
-      # TODO: Use Sign Up Service HERE
-      self.user = User.create!(user_params)
-      user.user_accounts.create!(account_params.merge(data: omniauth.to_hash))
+      service = UserServices::SignUp.run!(user: user_params)
+
+      if service.success?
+        self.user = service.user
+        user.user_accounts.create!(account_params.merge(data: omniauth.to_hash))
+      else
+        errors.reverse_merge!(service.errors)
+      end
+
+      success?
     end
 
     def user_params
@@ -51,25 +58,12 @@ module UserServices
         email:                  params.dig(:user, :email) || omniauth.dig(:info, :email),
         avatar_url:             omniauth.dig(:extra, :raw_info, :picture),
         password:               params.dig(:user, :password),
-        password_confirmation:  params.dig(:user, :password_confirmation),
-        state:                  define_user_state
+        password_confirmation:  params.dig(:user, :password_confirmation)
       }
     end
 
     def account_params
       { provider: omniauth[:provider], uid: omniauth[:uid] }
-    end
-
-    # TODO: Remove duplication
-    # Temporary code
-    def define_user_state
-      admin_emails = Settings.find_by(key: 'admin_emails')&.value.to_s
-
-      if admin_emails.split(' ').include?(params.dig(:user, :email) || omniauth.dig(:info, :email))
-        User.states[:admin]
-      else
-        User.states[:blocked]
-      end
     end
   end
 end

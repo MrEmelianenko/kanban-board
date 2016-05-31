@@ -38,10 +38,12 @@ ActiveRecord::Schema.define(version: 20160530163727) do
     t.uuid     "issue_type_id"
     t.string   "title",          null: false
     t.text     "description"
+    t.integer  "priority"
+    t.integer  "estimate"
     t.integer  "state"
     t.datetime "started_at"
     t.datetime "completed_at"
-    t.integer  "estimate"
+    t.integer  "position",       null: false
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.index ["assigned_to_id"], name: "index_issues_on_assigned_to_id", using: :btree
@@ -102,7 +104,6 @@ ActiveRecord::Schema.define(version: 20160530163727) do
   add_foreign_key "comments", "users", column: "creator_id"
   add_foreign_key "issues", "issue_types"
   add_foreign_key "issues", "projects"
-  add_foreign_key "issues", "users", column: "assigned_to_id"
   add_foreign_key "issues", "users", column: "creator_id"
   add_foreign_key "project_users", "projects"
   add_foreign_key "project_users", "users"

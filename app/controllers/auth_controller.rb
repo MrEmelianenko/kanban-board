@@ -64,9 +64,10 @@ class AuthController < ApplicationController
 
   def omniauth
     service = UserServices::Omniauth.run!(params, omniauth_data, current_user: current_user)
-    delete_omniauth_data
 
     if service.success?
+      delete_omniauth_data
+
       if user_signed_in?
         redirect_to user_url(service.user), flash: { success: 'Account successfully connected' }
       else
@@ -81,7 +82,7 @@ class AuthController < ApplicationController
       if user_signed_in?
         render 'users/edit', locals: { user: service.user, errors: service.errors }
       else
-        render :sign_up, locals: { user: service.user, errors: service.errors }
+        render :sign_up, locals: { user: User.new, errors: service.errors }
       end
     end
   end

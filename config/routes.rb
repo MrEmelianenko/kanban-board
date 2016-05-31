@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
-  resources :comments
-  resources :issues
-  resources :projects
+  # Users
   resources :users
+
+  # Projects -> Issues -> Comments
+  resources :projects do
+    resources :issues do
+      resources :comments
+    end
+  end
 
   # Authentication routes
   get 'sign-in', to: 'auth#sign_in'

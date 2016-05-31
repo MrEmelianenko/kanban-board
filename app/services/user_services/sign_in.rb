@@ -8,7 +8,7 @@ module UserServices
       @password = params[:password]
       @user = nil
 
-      super() # Initialize helpful variables
+      super()
     end
 
     def run

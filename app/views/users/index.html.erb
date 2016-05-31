@@ -2,15 +2,4 @@
   <h1>List of Users</h1>
 </div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= render partial: 'table_row', collection: users, as: :user %>
-  </tbody>
-</table>
+<%= render partial: 'table', locals: { users: users } %>
