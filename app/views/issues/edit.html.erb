@@ -1,5 +1,10 @@
 <div class="page-header">
-  <h1>Edit Project</h1>
+  <h1>
+    Edit Project
+
+    <%= link_to 'Delete', project_issue_path(issue.project_id, issue),
+                class: 'btn btn-danger pull-right', method: :delete, data: { confirm: 'Are you sure?' } %>
+  </h1>
 </div>
 
 <%= render partial: 'form', locals: { issue: issue, errors: defined?(errors) ? errors : {} } %>

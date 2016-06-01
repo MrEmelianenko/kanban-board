@@ -1,7 +1,7 @@
 <tr>
   <td><%= link_to project.name, project_path(project) %></td>
   <td><%= project.creator.name %></td>
-  <td><%= project.formatted_created_at %></td>
+  <td class="hidden-xs"><%= project.format_date(:created_at) %></td>
   <td>
     <ul class="list-inline">
       <% if policy(project).show? %>

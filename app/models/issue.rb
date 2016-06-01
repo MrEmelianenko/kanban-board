@@ -11,7 +11,7 @@ class Issue < ApplicationRecord
 
   # Validation
   validates :title, presence: true
-  validates :estimate, numericality: { greater_than_or_equal_to: 1, less_than_or_equal_to: 600 }
+  validates :estimate, numericality: { greater_than_or_equal_to: 1, less_than_or_equal_to: 600 }, allow_nil: true
 
   # Scopes
   default_scope -> { order(:position) }
@@ -37,27 +37,33 @@ class Issue < ApplicationRecord
     state :in_review
     state :done
 
-    event :move_to_backlog do
+    event :to_backlog, before_transaction: :clear_dates do
       transitions from: :in_progress, to: :backlog
     end
 
-    event :move_to_in_progress do
-      transitions from: [:backlog, :in_review], to: :in_progress, before: :set_started_at
+    event :to_in_progress, before_transaction: :set_started_at do
+      transitions from: [:backlog, :in_review], to: :in_progress
     end
 
-    event :move_to_in_review do
-      transitions from: [:in_progress, :done], to: :in_review, before: :set_completed_at
+    event :to_in_review, before_transaction: :set_completed_at do
+      transitions from: [:in_progress, :done], to: :in_review
     end
 
-    event :move_to_done do
+    event :to_done do
       transitions from: :in_review, to: :done
     end
   end
 
   private
 
+  def clear_dates
+    self.started_at = nil
+    self.completed_at = nil
+  end
+
   def set_started_at
     self.started_at ||= Time.now
+    self.completed_at = nil
   end
 
   def set_completed_at

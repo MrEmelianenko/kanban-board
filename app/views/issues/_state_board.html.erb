@@ -2,4 +2,6 @@
   <h4><%= state.humanize %></h4>
 </div>
 
-<%= render partial: 'issues/state_board_item', collection: issues.where(state: state), as: :issue %>
+<div id="issues-<%= state.dasherize %>" class="issues-board" data-state="<%= state %>">
+  <%= render partial: 'issues/state_board_item', collection: issues.where(state: state).decorate, as: :issue %>
+</div>

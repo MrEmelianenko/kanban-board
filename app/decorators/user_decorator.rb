@@ -1,7 +1,3 @@
-class UserDecorator < Drape::Decorator
+class UserDecorator < ApplicationDecorator
   delegate_all
-
-  def formatted_created_at
-    object.created_at.to_s(:short)
-  end
 end

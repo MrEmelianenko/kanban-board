@@ -1,20 +1,20 @@
 <div class="nested-fields">
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-8 col-xs-12">
       <div class="form-group">
         <%= f.label :user_id %>
         <%= f.collection_select :user_id, User.all, :id, :name, { prompt: true }, class: 'form-control' %>
       </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-3 col-xs-10">
       <div class="form-group">
         <%= f.label :access_level %>
         <%= f.select :access_level, enum_to_select(ProjectUser.access_levels), {}, class: 'form-control' %>
       </div>
     </div>
-    <div class="col-md-1">
+    <div class="col-md-1 col-xs-2">
       <label>&nbsp;</label>
-      <%= link_to_remove_association raw('&times;'), f, class: 'btn btn-danger btn-sm' %>
+      <%= link_to_remove_association raw('&times;'), f, class: 'btn btn-danger btn-sm btn-block' %>
     </div>
   </div>
 </div>

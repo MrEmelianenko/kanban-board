@@ -1,15 +1,15 @@
 <% if projects.size > 0 %>
   <table class="table">
     <thead>
-    <tr>
-      <th>Name</th>
-      <th>Creator</th>
-      <th>Created at</th>
-      <th>Actions</th>
-    </tr>
+      <tr>
+        <th>Name</th>
+        <th>Creator</th>
+        <th class="hidden-xs">Created at</th>
+        <th>Actions</th>
+      </tr>
     </thead>
     <tbody>
-    <%= render partial: 'projects/table_row', collection: projects, as: :project %>
+      <%= render partial: 'projects/table_row', collection: projects, as: :project %>
     </tbody>
   </table>
 <% else %>

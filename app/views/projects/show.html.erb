@@ -9,7 +9,7 @@
 
 <div class="row">
   <% Issue.states.keys.each do |state| %>
-    <div class="col-md-3">
+    <div class="col-md-3 col-xs-6">
       <%= render partial: 'issues/state_board', locals: { issues: issues, state: state } %>
     </div>
   <% end %>

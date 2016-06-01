@@ -1,10 +1,48 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">
-      <%= issue.title %>
-    </h3>
-  </div>
-  <div class="panel-body">
-    <%= issue.description %>
+<div class="issues-board-item" data-id="<%= issue.id %>" data-state="<%= issue.state %>">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <%= link_to issue.title.truncate(40), project_issue_path(issue.project_id, issue) %>
+
+        <small>
+          <strong><%= issue.type %></strong>
+          <i class="glyphicon glyphicon-arrow-right"></i>
+          <strong><%= issue.priority_colored %></strong>
+        </small>
+
+        <% if policy(issue).update? %>
+          <%= link_to edit_project_issue_path(issue.project_id, issue), class: 'pull-right', title: 'Edit' do %>
+            <i class="glyphicon glyphicon-edit"></i>
+          <% end %>
+        <% end %>
+      </h3>
+    </div>
+    <div class="panel-body">
+      <ul class="list-unstyled">
+        <li>
+          <span class="hidden-xs">Assigned to:</span>
+          <span class="visible-xs-inline">To:</span>
+          <strong><%= issue.assigned_to_name(link: true) %></strong>
+        </li>
+        <li>
+          <span class="hidden-xs">Author:</span>
+          <span class="visible-xs-inline">By:</span>
+          <strong><%= issue.creator_name(link: true) %></strong>
+        </li>
+        <% if issue.started_at? %>
+          <li class="hidden-xs">
+            Started at: <strong><%= issue.format_date(:started_at) %></strong>
+          </li>
+        <% end %>
+        <% if issue.completed_at? %>
+          <li class="hidden-xs">
+            Completed at: <strong><%= issue.format_date(:completed_at) %></strong>
+          </li>
+        <% end %>
+        <li class="hidden-xs">
+          Created at: <strong><%= issue.format_date(:created_at) %></strong>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>

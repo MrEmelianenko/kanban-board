@@ -1,8 +1,44 @@
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,400italic);
+//= require jquery-ui/sortable
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,400italic');
 
 @import "bootstrap-variables";
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "summernote";
+
+.issues-board {
+  min-height: 200px;
+
+  .issues-board-item {
+    .panel-heading {
+      cursor: move;
+    }
+  }
+
+  .issues-board-item-placeholder {
+    background: #eee;
+    border-radius: 5px;
+    height: 50px;
+    margin: 0 0 20px;
+  }
+}
+
+.issue-information {
+  .issue-information-title {
+    text-align: right;
+    font-weight: 600;
+  }
+}
+
+// Fix Summernote
+.note-editor.note-frame {
+  border: 1px solid #e7e7e7;
+}
+
+.note-editor.note-frame .note-editing-area .note-editable {
+  min-height: 250px;
+}
 
 // Lumen 3.3.5
 // Bootswatch

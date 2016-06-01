@@ -4,7 +4,10 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    render locals: { project: project.decorate, issues: project.issues.includes(:issue_type, :creator, :assigned_to) }
+    render locals: {
+      project: project.decorate,
+      issues: project.issues.includes(:issue_type, :creator, :assigned_to)
+    }
   end
 
   def new

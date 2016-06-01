@@ -1,6 +1,8 @@
 <%= render_full_errors(errors) if defined?(errors) %>
 
 <%= form_for([issue.project, issue]) do |f| %>
+  <%= f.hidden_field :project_id %>
+
   <div class="row">
     <div class="col-md-6">
       <div class="form-group">
@@ -9,7 +11,7 @@
       </div>
       <div class="form-group">
         <%= f.label :description %>
-        <%= f.text_area :description, class: 'form-control', rows: 12 %>
+        <%= f.text_area :description, class: 'form-control', data: { provider: 'summernote' } %>
       </div>
     </div>
     <div class="col-md-6">

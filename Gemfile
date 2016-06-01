@@ -20,6 +20,8 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5.x'
 gem 'bootstrap-sass', '~> 3.3.6'
+gem 'summernote-rails', '~> 0.8.1.1'
+gem 'jquery-ui-rails', '~> 5.0'
 
 # Security
 gem 'bcrypt', '~> 3.1.7'
@@ -58,4 +60,12 @@ group :development do
   gem 'listen', '~> 3.0.5'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+end
+
+group :test do
+  gem 'rspec-rails', '~> 3.4'
+  gem 'capybara', '~> 2.7'
+  gem 'factory_girl', '~> 4.7'
+  gem 'ffaker', '~> 2.2'
+  gem 'fakeredis', '~> 0.5.0'
 end
